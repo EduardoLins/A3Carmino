@@ -51,7 +51,7 @@ rotas.put("/EmissaoCarro", (req, res, error)=>{
     const {modelo, ano, litros, id} = req.body;
     let conta = calculoGasolina(litros);
 
-    const sql = 'UPDATE EmissaoCarro SET modelo=?, ano=?, litros=?, carbono='+  conta + 'WHERE id=?'
+    const sql = 'UPDATE EmissaoCarro SET modelo=?, ano=?, litros=?, carbono='+ conta + 'WHERE id=?'
     
 
     pool.query(sql, [modelo, ano, litros, id], (error, results, fields)=>{
@@ -103,10 +103,6 @@ function calculoGasolina(x){
     return result;
     
 }
-function gastoCombustivel(x,y){
 
-    let resultado = x/y;
-    return resultado;
-}
 
 export default rotas;
