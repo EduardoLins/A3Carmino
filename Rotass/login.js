@@ -1,6 +1,7 @@
 import conexaoHttp from 'express'; // conexao com o hhtp
 import pool from '../pool.js';
 
+
 const rotas = conexaoHttp.Router();
 
 rotas.get("/login", (req, res, error)=>{
@@ -12,6 +13,7 @@ rotas.get("/login", (req, res, error)=>{
 });
 
 
+
 rotas.get("/login/:id", (req, res, error)=>{
     const sql = 'SELECT * FROM login WHERE login.id=' + req.params.id;
 
@@ -19,6 +21,7 @@ rotas.get("/login/:id", (req, res, error)=>{
         mensagens(error, results, res);
     })
 });
+
 
 rotas.get("/login/email/:email", (req, res, error)=>{
     const sql = 'SELECT * FROM login WHERE login.email=?';

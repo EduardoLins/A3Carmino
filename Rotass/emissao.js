@@ -60,7 +60,7 @@ rotas.put("/EmissaoCarro", (req, res, error)=>{
     })
 
 });
-//Nos capota mas nao breka
+
 rotas.put("/EmissaoCarro/id/:id", (req, res, error)=>{
     const {modelo, ano, litros} = req.body;
     const {id} = req.params.id;
