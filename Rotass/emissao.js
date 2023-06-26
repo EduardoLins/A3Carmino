@@ -77,10 +77,10 @@ rotas.put("/EmissaoCarro/id/:id", (req, res, error)=>{
 });
 
 rotas.delete("/EmissaoCarro/:id", (req, res, error)=>{
-    const sql = 'DELETE  FROM emissao WHERE EmissaoCarro.id= ' + req.params.id;
-    //const {id}= req.params.id;
+    const sql = 'DELETE  FROM EmissaoCarro WHERE EmissaoCarro.id= ' + req.params.id;
+    
 
-    pool.query(sql,  (error, results, fields)=>{
+    pool.query(sql, (error, results, fields)=>{
         
         mensagens(error, results, res);
     });

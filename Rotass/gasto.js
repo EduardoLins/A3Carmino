@@ -14,6 +14,8 @@ rotas.get("/gastoMensal", (req, res, error)=>{
         mensagens(error, results, res);
     })
 });
+
+//End point retornando o valor gasto total em combustivel
 rotas.get("/gastoMensal/:total", (req, res, error)=>{
     const sql = 'select sum (total) from gastoMensal'
     
@@ -28,9 +30,6 @@ rotas.post("/gastoMensal", (req, res, error)=>{
     let  total = gastoCombustivel(taxaConsumo, preco, km);
 
     const sql = 'INSERT INTO gastoMensal(taxaConsumo, preco, km, total)' + 'VALUES (?,?,?,' + total+')';
-    
-    
-
     pool.query(sql, [taxaConsumo, preco, km, total], (error, results, fields)=>{
         
         mensagens(error, results, res);

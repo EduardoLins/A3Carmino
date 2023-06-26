@@ -13,7 +13,7 @@ rotas.get("/login", (req, res, error)=>{
 });
 
 
-
+//Get pelo ID
 rotas.get("/login/:id", (req, res, error)=>{
     const sql = 'SELECT * FROM login WHERE login.id=' + req.params.id;
 
@@ -22,7 +22,7 @@ rotas.get("/login/:id", (req, res, error)=>{
     })
 });
 
-
+//Get pelo email
 rotas.get("/login/email/:email", (req, res, error)=>{
     const sql = 'SELECT * FROM login WHERE login.email=?';
     const email = req.params.email;
@@ -54,6 +54,7 @@ rotas.put("/login", (req, res, error)=>{
 
 });
 
+//Put por um Id especifico
 rotas.put("/login/id/:id", (req, res, error)=>{
     const sql = 'UPDATE login SET  email=?, senha=?, nome=?, cpf=?, data=? WHERE id=?';
     const {email, senha, nome, cpf, data} = req.body;
@@ -66,6 +67,7 @@ rotas.put("/login/id/:id", (req, res, error)=>{
 
 });
 
+//Delete por um id especifico
 rotas.delete("/login/:id", (req, res, error)=>{
     const sql = 'DELETE  FROM login WHERE login.id= ' + req.params.id;
     //const {id}= req.params.id;
