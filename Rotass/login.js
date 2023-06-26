@@ -57,7 +57,7 @@ rotas.put("/login", (req, res, error)=>{
 rotas.put("/login/id/:id", (req, res, error)=>{
     const sql = 'UPDATE login SET  email=?, senha=?, nome=?, cpf=?, data=? WHERE id=?';
     const {email, senha, nome, cpf, data} = req.body;
-    const {id} = req.params.id;
+    const id = req.params.id;
 
     pool.query(sql, [ email, senha, nome, cpf, data, id], (error, results, fields)=>{
         

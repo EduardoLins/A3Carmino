@@ -63,7 +63,7 @@ rotas.put("/EmissaoCarro", (req, res, error)=>{
 
 rotas.put("/EmissaoCarro/id/:id", (req, res, error)=>{
     const {modelo, ano, litros} = req.body;
-    const {id} = req.params.id;
+    const id = req.params.id;
     let conta = calculoGasolina(litros);
     
     const sql = 'UPDATE EmissaoCarro SET  modelo=?, ano=?, litros=?, carbono= '+ conta +'  WHERE id=?';

@@ -1,3 +1,7 @@
+//CRUD gasto de combustrivel em reais 
+
+
+
 import conexaoHttp from 'express';
 import pool from '../pool.js';
 
@@ -10,6 +14,14 @@ rotas.get("/gastoMensal", (req, res, error)=>{
         mensagens(error, results, res);
     })
 });
+rotas.get("/gastoMensal/:total", (req, res, error)=>{
+    const sql = 'select sum (total) from gastoMensal'
+    
+    pool.query(sql, (error, results, fields)=>{
+        console.log(sql);
+        mensagens(error, results, res);
+    })
+})
 
 rotas.post("/gastoMensal", (req, res, error)=>{
     const {taxaConsumo, preco, km} = req.body;
@@ -25,34 +37,42 @@ rotas.post("/gastoMensal", (req, res, error)=>{
     })
 });
 rotas.put("/gastoMensal", (req, res, error)=>{
-    const {taxaConsumo, preco, km, id_dia} = req.body;
+    const {taxaConsumo, preco, km, id} = req.body;
     let conta = gastoCombustivel(taxaConsumo, preco, km);
 
-    const sql = 'UPDATE gastoMensal SET taxaConsumo=?, preco=?, km=?, total='+ conta + 'WHERE id_dia=?'
+    const sql = 'UPDATE gastoMensal SET taxaConsumo=?, preco=?, km=?, total='+ conta + 'WHERE id=?'
     
 
-    pool.query(sql, [taxaConsumo, preco, km, id_dia], (error, results, fields)=>{
+    pool.query(sql, [taxaConsumo, preco, km, id], (error, results, fields)=>{
         
         mensagens(error, results, res);
     })
 
 });
 
-rotas.put("/gastoMensal/id_dia/:id_dia", (req, res, error)=>{
+rotas.put("/gastoMensal/id/:id", (req, res, error)=>{
     const {taxaConsumo, preco, km} = req.body;
-    const {id_dia} = req.params.id_dia;
+    const id = req.params.id;
     let conta = gastoCombustivel(taxaConsumo, preco, km);
     
-    const sql = 'UPDATE gastoMensal SET  taxaConsumo=?, preco=?, km=?, total= '+ conta +'  WHERE id_dia=?';
+    const sql = 'UPDATE gastoMensal SET  taxaConsumo=?, preco=?, km=?, total= '+ conta +'  WHERE id=?';
     
 
-    pool.query(sql, [taxaConsumo, preco, km, id_dia], (error, results, fields)=>{
+    pool.query(sql, [taxaConsumo, preco, km, id], (error, results, fields)=>{
         
         mensagens(error, results, res);
     });
 
 });
+rotas.delete("/gastoMensal/:id", (req, res, error)=>{
+    const sql = 'DELETE  FROM emissao WHERE gastoMensal.id= ' + req.params.id;
+    //const {id}= req.params.id;
 
+    pool.query(sql,  (error, results, fields)=>{
+        
+        mensagens(error, results, res);
+    });
+});
 
 
 function mensagens(error, results, res){
